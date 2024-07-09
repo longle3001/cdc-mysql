@@ -1,0 +1,12 @@
+confluent-kafka==2.3.0
+python-dateutil==2.8.2
+boto3==1.34.84
+python-json-logger==2.0.7
+pydantic==2.7.0
+pydantic-settings==2.2.1
+localstack_client==2.5
+pytest==7.2.2
+pytest-mock==3.10.0
+coverage==7.0.4
+pandas
+pyarrow
