@@ -6,12 +6,13 @@ from pythonjsonlogger import jsonlogger
 
 current_directory = os.getcwd().replace("common", "")
 sys.path.insert(0, current_directory)
-current_directory = current_directory +'/app'
+current_directory = current_directory + "/app"
 sys.path.insert(0, current_directory)
 from kafkaservice import start_pull_data_from_kafka
 from settings.settings import settings
 
 FORMAT = "%(levelname)s: {%(filename)s:%(lineno)d} - %(message)s"
+
 
 def setup_logging():
     """Setup logging for the application."""
@@ -40,8 +41,6 @@ class CustomJsonFormatter(jsonlogger.JsonFormatter):
             log_record["level"] = log_record["level"].upper()
         else:
             log_record["level"] = record.levelname
-
-
 
 
 def main():

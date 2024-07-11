@@ -74,12 +74,12 @@ class BaseConsumer:
         self.topics = topics
         self.consumer_name = consumer_name
         self.thread_id = thread_id
-        self.s3_client  = boto3.client(
-            's3',
+        self.s3_client = boto3.client(
+            "s3",
             endpoint_url=settings.S3_HOST,
             aws_access_key_id=settings.S3_USERNAME,
             aws_secret_access_key=settings.S3_PASSWORD,
-            config=Config(signature_version='s3v4')
+            config=Config(signature_version="s3v4"),
         )
 
         if (
@@ -110,7 +110,6 @@ class BaseConsumer:
             )
             raise SubscribeKafkaTopicException(error_detail) from err
 
-
     def send_failed_msg_to_dlq(self, topic: str, message: dict):
         """send to dlq if encouring any error"""
         try:
@@ -120,7 +119,6 @@ class BaseConsumer:
         except Exception as e:
             print(f"Failed to send message to Kafka: {e}")
 
-
     def create_bucket_if_not_exists(self, bucket_name):
         try:
             self.s3_client.head_bucket(Bucket=bucket_name)
@@ -129,8 +127,7 @@ class BaseConsumer:
             self.s3_client.create_bucket(Bucket=bucket_name)
             print(f"Bucket '{bucket_name}' was created successfully.")
 
-
-    def store_s3_json(self, items: list, bucket_name:str):
+    def store_s3_json(self, items: list, bucket_name: str):
         try:
             current_date = datetime.now().strftime("%Y/%m/%d")
             prefix = f"{settings.S3_BASE_PREFIX}/{current_date}/type=json"
@@ -140,8 +137,8 @@ class BaseConsumer:
             self.s3_client.put_object(Bucket=bucket_name, Key=file_name, Body=json_data)
         except Exception as e:
             print(f"Error: {e}")
-    
-    def store_s3_parquet(self, items: list, bucket_name:str):
+
+    def store_s3_parquet(self, items: list, bucket_name: str):
         try:
             current_date = datetime.now().strftime("%Y/%m/%d")
             prefix = f"{settings.S3_BASE_PREFIX}/{current_date}/type=parquet"
@@ -149,12 +146,11 @@ class BaseConsumer:
             self.create_bucket_if_not_exists(bucket_name)
             df = pd.DataFrame(items)
             table = pa.Table.from_pandas(df)
-            pq.write_table(table, 'temp.parquet')
-            with open('temp.parquet', 'rb') as data:
+            pq.write_table(table, "temp.parquet")
+            with open("temp.parquet", "rb") as data:
                 self.s3_client.put_object(Body=data, Bucket=bucket_name, Key=file_name)
         except Exception as e:
             print(f"Error: {e}")
-
 
     @abstractmethod
     def process_msg(self, msg: str) -> None:
@@ -169,7 +165,7 @@ class BaseConsumer:
                 try:
                     msgs = self.consumer.consume(
                         num_messages=int(settings.MAX_MESSAGES),
-                        timeout=int(settings.CONSUMER_TIMEOUT)
+                        timeout=int(settings.CONSUMER_TIMEOUT),
                     )
                     if not msgs:
                         continue

@@ -23,7 +23,6 @@ class Settings(BaseSettings):
     S3_USERNAME: str = os.getenv("S3_USERNAME", "minio")
     S3_PASSWORD: str = os.getenv("S3_PASSWORD", "minio123")
     S3_BASE_PREFIX: str = os.getenv("S3_BASE_PREFIX", "test")
-    
 
     class Config:
         case_sensitive = True

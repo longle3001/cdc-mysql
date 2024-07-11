@@ -6,7 +6,11 @@ from datetime import datetime
 
 from confluent_kafka import KafkaError, KafkaException
 
-from common.common import MYSQL_DB_USERS_TOPIC, MYSQL_DB_USERS_TOPIC, MYSQL_DB_USERS_DLQ_TOPIC
+from common.common import (
+    MYSQL_DB_USERS_TOPIC,
+    MYSQL_DB_USERS_TOPIC,
+    MYSQL_DB_USERS_DLQ_TOPIC,
+)
 from common.schema import user_schema
 from kafkaservice.base_consumer import BaseConsumer
 
@@ -17,7 +21,7 @@ logger = logging.getLogger(__name__)
 class MysqlEventConsumer(BaseConsumer):
     """The Consumer of Topic mongo users"""
 
-    def _create_new_record(self, is_deleted:bool=False, message:dict={}):
+    def _create_new_record(self, is_deleted: bool = False, message: dict = {}):
         temp = user_schema.copy()
         if "id" not in message.keys() or not message["id"]:
             return
@@ -26,9 +30,8 @@ class MysqlEventConsumer(BaseConsumer):
         temp["email"] = message["email"] if "email" in message.keys() else ""
         temp["last_update"] = str(datetime.now())
         if is_deleted:
-            temp["is_deleted"]=1
+            temp["is_deleted"] = 1
         return temp
-
 
     def process_create_update(self, messages: list):
         logger.info("-----process_create_update-----")
@@ -36,12 +39,12 @@ class MysqlEventConsumer(BaseConsumer):
         users = []
         for message in messages:
             try:
-                if message["op"] in ["c","u"]:
+                if message["op"] in ["c", "u"]:
                     message = message["after"]
-                    temp = self._create_new_record(is_deleted=False,message=message)
+                    temp = self._create_new_record(is_deleted=False, message=message)
                 else:
                     message = message["before"]
-                    temp = self._create_new_record(is_deleted=True,message=message)
+                    temp = self._create_new_record(is_deleted=True, message=message)
                 users.append(temp)
             except Exception as e:
                 message["error_message"] = f"Error processing data: {str(e)}"
@@ -51,7 +54,6 @@ class MysqlEventConsumer(BaseConsumer):
         self.store_s3_json(items=users, bucket_name="bucket-user-test")
         self.store_s3_parquet(items=users, bucket_name="bucket-user-test")
         return users
-
 
     def process_msg(self, msgs: str) -> str:
         """Process message for mysql users kafka Consumer.
@@ -78,7 +80,6 @@ class MysqlEventConsumer(BaseConsumer):
                     batch_messages.append(message)
             if batch_messages:
                 self.process_create_update(batch_messages)
-                    
 
         except Exception as exc:
             logger.exception(
