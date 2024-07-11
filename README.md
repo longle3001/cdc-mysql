@@ -103,7 +103,7 @@ mc ls myminio
 
 ```
 
-4. try to insert data into DB
+4. try to insert data into DB and run conumser
 ```
 INSERT INTO prod.users (name, email) VALUES ('Long Le 1', 'long.le1@example.com');
 INSERT INTO prod.users (name, email) VALUES ('Long Le 2', 'long.le2@example.com');
@@ -116,6 +116,11 @@ WHERE NAME = 'Long Le 1'
 
 DELETE FROM prod.users
 WHERE id=2
+```
+
+
+```
+python app/common/main.py
 ```
 
 5. Check in the minio
