@@ -1,0 +1,45 @@
+pip install meltano
+
+meltano init my_meltano_project
+cd my_meltano_project
+
+meltano add extractor tap-mongodb
+meltano add loader target-clickhouse
+
+meltano config tap-mongodb set --interactive
+meltano config target-clickhouse set --interactive
+
+meltano config tap-mongodb test 
+meltano select tap-mongodb --list    
+
+
+meltano config target-clickhouse test 
+meltano select target-clickhouse --list    
+
+
+meltano lock --update --all
+meltano install
+
+https://github.com/MeltanoLabs/meltano-map-transform/blob/main/README.md
+meltano add mapper meltano-map-transformer
+meltano run tap-mongodb hash_email  target-clickhouse
+
+
+
+
+
+openssl rand -base64 741 > security.keyfile
+chmod 400 security.keyfile
+
+docker exec -it cdc-mysql-mongodb-1 mongosh
+use admin 
+db.auth('admin', 'admin')  -- username password
+rs.initiate()
+rs.status()
+
+docker ps --> tim in cua container mongo
+sudo nano /etc/hosts --> them ánh xạ này
+127.0.0.1    8d525f087150
+
+
+meltano elt tap-mongodb target-clickhouse --transform run

@@ -1,114 +1,136 @@
 version: '3'
-services:
-  # streaming-service-1:
-  #   build: ./app
-  #   container_name: streaming-service-1
+services:   
+  # zookeeper:
+  #   image: confluentinc/cp-zookeeper:latest
   #   platform: linux/amd64
   #   environment:
-      # LOCALSTACK_HOST: localstack
-      # KAFKA_BINDER_BROKERS: "kafka:9092"
-    
+  #     ZOOKEEPER_CLIENT_PORT: 32181
+  #     ZOOKEEPER_TICK_TIME: 2000
 
-  zookeeper:
-    image: confluentinc/cp-zookeeper:latest
-    platform: linux/amd64
-    environment:
-      ZOOKEEPER_CLIENT_PORT: 32181
-      ZOOKEEPER_TICK_TIME: 2000
-
-  kafka:
-    image: confluentinc/cp-enterprise-kafka:latest
-    platform: linux/amd64
-    ports:
-      # - "9092:9092"
-      - "29092:29092"
-    depends_on:
-      - zookeeper
-    environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
-      # mới thêm
-      KAFKA_METRICS_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
-      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:29092
-      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
-      CONFLUENT_METRICS_ENABLE: 'true'
-      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
-
-  kafka-connect:
-    build:
-      context: .
-      dockerfile: connect.Dockerfile
-    ports:
-      - "35000:35000"
-      - "8083:8083"
-    hostname: connect
-    container_name: connect
-    depends_on:
-      - zookeeper
-      - kafka
-    environment:
-      KAFKA_JMX_PORT: 35000
-      KAFKA_JMX_HOSTNAME: localhost
-      CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
-      CONNECT_REST_ADVERTISED_HOST_NAME: connect
-      CONNECT_REST_PORT: 8083
-      CONNECT_GROUP_ID: connect-cluster-group
-      CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
-      CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
-      CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
-      CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
-      CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-      CONNECT_ZOOKEEPER_CONNECT: "zookeeper:32181"
-      CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
-      CONNECT_CONNECTIONS_MAX_IDLE_MS: 180000
-      CONNECT_METADATA_MAX_AGE_MS: 180000
-      CONNECT_AUTO_CREATE_TOPICS_ENABLE: "true"
-      CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-      CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
-
-
-  # localstack:
-  #   image: localstack/localstack:latest
-  #   container_name: localstack
+  # kafka:
+  #   image: confluentinc/cp-enterprise-kafka:latest
   #   platform: linux/amd64
-  #   environment:
-  #     - AWS_DEFAULT_REGION=us-east-1
-  #     - EDGE_PORT=4566
   #   ports:
-  #     - 4566:4566
-  #   volumes:
-  #     - "${TMPDIR:-/tmp/localstack}:/var/lib/localstack"
-  #     - /var/run/docker.sock:/var/run/docker.sock
-      
+  #     # - "9092:9092"
+  #     - "29092:29092"
+  #   depends_on:
+  #     - zookeeper
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:32181
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+  #     KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+  #     KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+  #     KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
+  #     # mới thêm
+  #     KAFKA_METRICS_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+  #     CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:29092
+  #     CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+  #     CONFLUENT_METRICS_ENABLE: 'true'
+  #     CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
+  # kafka-connect:
+  #   build:
+  #     context: .
+  #     dockerfile: connect.Dockerfile
+  #   ports:
+  #     - "35000:35000"
+  #     - "8083:8083"
+  #   hostname: connect
+  #   container_name: connect
+  #   depends_on:
+  #     - zookeeper
+  #     - kafka
+  #   environment:
+  #     KAFKA_JMX_PORT: 35000
+  #     KAFKA_JMX_HOSTNAME: localhost
+  #     CONNECT_BOOTSTRAP_SERVERS: "kafka:9092"
+  #     CONNECT_REST_ADVERTISED_HOST_NAME: connect
+  #     CONNECT_REST_PORT: 8083
+  #     CONNECT_GROUP_ID: connect-cluster-group
+  #     CONNECT_CONFIG_STORAGE_TOPIC: docker-connect-configs
+  #     CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
+  #     CONNECT_OFFSET_FLUSH_INTERVAL_MS: 10000
+  #     CONNECT_OFFSET_STORAGE_TOPIC: docker-connect-offsets
+  #     CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
+  #     CONNECT_STATUS_STORAGE_TOPIC: docker-connect-status
+  #     CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+  #     CONNECT_ZOOKEEPER_CONNECT: "zookeeper:32181"
+  #     CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
+  #     CONNECT_CONNECTIONS_MAX_IDLE_MS: 180000
+  #     CONNECT_METADATA_MAX_AGE_MS: 180000
+  #     CONNECT_AUTO_CREATE_TOPICS_ENABLE: "true"
+  #     CONNECT_KEY_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+  #     CONNECT_VALUE_CONVERTER: "org.apache.kafka.connect.json.JsonConverter"
+
+
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    platform: linux/amd64
+    environment:
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    ports:
+      - 4566:4566
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/var/lib/localstack"
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:22.5.1.2079
+    platform: linux/amd64
+    ports:
+      - "9000:9000"  
+      - "8123:8123"  # Port cho HTTP interface
+    environment:
+      CLICKHOUSE_USER: clickhouse-user
+      CLICKHOUSE_PASSWORD: secret
+    volumes:
+      - clickhouse_data:/var/lib/clickhouse 
+
   s3:
     image: minio/minio
     environment:
       MINIO_ACCESS_KEY: minio
       MINIO_SECRET_KEY: minio123
     ports:
-      - 9000:9000
+      - 9001:9000
     command: server /data
     volumes:
       - ./export:/export
       - ./config:/root/.minio
   
-  mysql:
-    image: mysql:5.7
-    platform: linux/amd64
-    environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: prod
-    ports:
-      - "3306:3306"
+  # mysql:
+  #   image: mysql:5.7
+  #   platform: linux/amd64
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: password
+  #     MYSQL_USER: mysql
+  #     MYSQL_PASSWORD: password
+  #     MYSQL_DATABASE: prod
+  #   ports:
+  #     - "3306:3306"
   
+  mongodb: 
+    image: mongo:5.0.15
+    # platform: linux/amd64
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: mongo
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_REPLICA_SET_NAME: rs0
+    volumes:
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./security.keyfile:/etc/mongo/keyfile:ro
+    command: mongod --replSet rs0 --auth --keyFile /etc/mongo/keyfile --bind_ip_all
+  
+volumes:
+  clickhouse_data:
