@@ -1,0 +1,1773 @@
+{
+  "streams": [
+    {
+      "tap_stream_id": "admin_system.users",
+      "database_name": "admin",
+      "table_name": "system.users",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          },
+          "db": {
+            "type": "string"
+          },
+          "credentials": {
+            "properties": {
+              "SCRAM-SHA-1": {
+                "properties": {
+                  "iterationCount": {
+                    "type": "integer"
+                  },
+                  "salt": {
+                    "type": "string"
+                  },
+                  "storedKey": {
+                    "type": "string"
+                  },
+                  "serverKey": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "SCRAM-SHA-256": {
+                "properties": {
+                  "iterationCount": {
+                    "type": "integer"
+                  },
+                  "salt": {
+                    "type": "string"
+                  },
+                  "storedKey": {
+                    "type": "string"
+                  },
+                  "serverKey": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "roles": {
+            "items": {
+              "properties": {
+                "role": {
+                  "type": "string"
+                },
+                "db": {
+                  "type": "string"
+                }
+              },
+              "type": "object",
+              "required": [
+                "db",
+                "role"
+              ]
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "admin_system.users",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "userId"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "user"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "db"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "credentials"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "roles"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "admin_system.version",
+      "database_name": "admin",
+      "table_name": "system.version",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "currentVersion": {
+            "type": "integer"
+          },
+          "version": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "admin_system.version",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "currentVersion"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "version"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "config_transactions",
+      "database_name": "config",
+      "table_name": "transactions",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "txnNum": {
+            "type": "integer"
+          },
+          "lastWriteOpTime": {
+            "properties": {
+              "ts": {
+                "type": "string"
+              },
+              "t": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          },
+          "lastWriteDate": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "config_transactions",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "txnNum"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "lastWriteOpTime"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "lastWriteDate"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "local_oplog.rs",
+      "database_name": "local",
+      "table_name": "oplog.rs",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "op": {
+            "type": "string"
+          },
+          "ns": {
+            "type": "string"
+          },
+          "o": {
+            "properties": {
+              "msg": {
+                "type": "string"
+              },
+              "_id": {
+                "anyOf": [
+                  {
+                    "type": [
+                      "integer",
+                      "string"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "uid": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "uid"
+                    ]
+                  }
+                ]
+              },
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "integer"
+              },
+              "lastUse": {
+                "type": "string"
+              },
+              "user": {
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "createIndexes": {
+                "type": "string"
+              },
+              "v": {
+                "type": "integer"
+              },
+              "key": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "expireAt": {
+                        "type": "integer"
+                      },
+                      "ttlExpiresAt": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ]
+              },
+              "expireAfterSeconds": {
+                "type": "integer"
+              },
+              "purpose": {
+                "type": "string"
+              },
+              "expiresAt": {
+                "type": "string"
+              },
+              "oldId": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "createdAt": {
+                "type": "string"
+              },
+              "isVerified": {
+                "type": "boolean"
+              },
+              "services": {
+                "properties": {
+                  "google": {
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "accessToken": {
+                        "type": "string"
+                      },
+                      "idToken": {
+                        "type": "string"
+                      },
+                      "expiresAt": {
+                        "type": "integer"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "verified_email": {
+                        "type": "boolean"
+                      },
+                      "picture": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "lastLogin": {
+                "type": "string"
+              },
+              "payment": {
+                "properties": {
+                  "customerRemoteId": {
+                    "type": "string"
+                  },
+                  "subscriptionRemoteId": {
+                    "type": "string"
+                  },
+                  "planRemoteId": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "period": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "quantity": {
+                    "type": "integer"
+                  },
+                  "currency": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "usedStorage_aibyte_transform": {
+                "type": "string"
+              },
+              "timezoneOffset": {
+                "type": "integer"
+              },
+              "lastAccess": {
+                "type": "string"
+              },
+              "introducedFeature": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "metadata": {
+                "properties": {
+                  "rating": {
+                    "properties": {
+                      "googleModalStatus": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "hasShownTourGuide": {
+                    "type": "boolean"
+                  },
+                  "hasShownAutoSyncModal": {
+                    "type": "boolean"
+                  },
+                  "highestOrgPlan": {
+                    "properties": {
+                      "highestLuminPlan": {
+                        "type": "string"
+                      },
+                      "highestLuminPlanStatus": {
+                        "type": "string"
+                      },
+                      "highestLuminOrgRole": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "loginService": {
+                "type": "string"
+              },
+              "emailDomain": {
+                "type": "string"
+              },
+              "identityId": {
+                "type": "string"
+              },
+              "create": {
+                "type": "string"
+              },
+              "idIndex": {
+                "properties": {
+                  "v": {
+                    "type": "integer"
+                  },
+                  "key": {
+                    "properties": {
+                      "_id": {
+                        "type": "integer"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "ts": {
+            "type": "string"
+          },
+          "t": {
+            "type": "integer"
+          },
+          "v": {
+            "type": "integer"
+          },
+          "wall": {
+            "type": "string"
+          },
+          "lsid": {
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "uid": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "txnNumber": {
+            "type": "integer"
+          },
+          "ui": {
+            "type": "string"
+          },
+          "stmtId": {
+            "type": "integer"
+          },
+          "prevOpTime": {
+            "properties": {
+              "ts": {
+                "type": "string"
+              },
+              "t": {
+                "type": "integer"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "local_oplog.rs",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "op"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "ns"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "o"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "ts"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "t"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "v"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "wall"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "lsid"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "txnNumber"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "ui"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "stmtId"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "prevOpTime"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "local_replset.election",
+      "database_name": "local",
+      "table_name": "replset.election",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "term": {
+            "type": "integer"
+          },
+          "candidateIndex": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "local_replset.election",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "term"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "candidateIndex"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "local_replset.minvalid",
+      "database_name": "local",
+      "table_name": "replset.minvalid",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "t": {
+            "type": "integer"
+          },
+          "ts": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "local_replset.minvalid",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "t"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "ts"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "local_startup_log",
+      "database_name": "local",
+      "table_name": "startup_log",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "startTime": {
+            "type": "string"
+          },
+          "startTimeLocal": {
+            "type": "string"
+          },
+          "cmdLine": {
+            "properties": {
+              "net": {
+                "properties": {
+                  "bindIp": {
+                    "type": "string"
+                  },
+                  "port": {
+                    "type": "integer"
+                  },
+                  "tls": {
+                    "properties": {
+                      "mode": {
+                        "type": "string"
+                      }
+                    },
+                    "type": "object"
+                  }
+                },
+                "type": "object"
+              },
+              "processManagement": {
+                "properties": {
+                  "fork": {
+                    "type": "boolean"
+                  },
+                  "pidFilePath": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "systemLog": {
+                "properties": {
+                  "destination": {
+                    "type": "string"
+                  },
+                  "logAppend": {
+                    "type": "boolean"
+                  },
+                  "path": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "replication": {
+                "properties": {
+                  "replSet": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "security": {
+                "properties": {
+                  "authorization": {
+                    "type": "string"
+                  },
+                  "keyFile": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "pid": {
+            "type": "integer"
+          },
+          "buildinfo": {
+            "properties": {
+              "version": {
+                "type": "string"
+              },
+              "gitVersion": {
+                "type": "string"
+              },
+              "modules": {
+                "type": "array"
+              },
+              "allocator": {
+                "type": "string"
+              },
+              "javascriptEngine": {
+                "type": "string"
+              },
+              "sysInfo": {
+                "type": "string"
+              },
+              "versionArray": {
+                "items": {
+                  "type": "integer"
+                },
+                "type": "array"
+              },
+              "openssl": {
+                "properties": {
+                  "running": {
+                    "type": "string"
+                  },
+                  "compiled": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "buildEnvironment": {
+                "properties": {
+                  "distmod": {
+                    "type": "string"
+                  },
+                  "distarch": {
+                    "type": "string"
+                  },
+                  "cc": {
+                    "type": "string"
+                  },
+                  "ccflags": {
+                    "type": "string"
+                  },
+                  "cxx": {
+                    "type": "string"
+                  },
+                  "cxxflags": {
+                    "type": "string"
+                  },
+                  "linkflags": {
+                    "type": "string"
+                  },
+                  "target_arch": {
+                    "type": "string"
+                  },
+                  "target_os": {
+                    "type": "string"
+                  },
+                  "cppdefines": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "bits": {
+                "type": "integer"
+              },
+              "debug": {
+                "type": "boolean"
+              },
+              "maxBsonObjectSize": {
+                "type": "integer"
+              },
+              "storageEngines": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "local_startup_log",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "hostname"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "startTime"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "startTimeLocal"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "cmdLine"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "pid"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "buildinfo"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "local_system.replset",
+      "database_name": "local",
+      "table_name": "system.replset",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "term": {
+            "type": "integer"
+          },
+          "members": {
+            "items": {
+              "properties": {
+                "_id": {
+                  "type": "integer"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "arbiterOnly": {
+                  "type": "boolean"
+                },
+                "buildIndexes": {
+                  "type": "boolean"
+                },
+                "hidden": {
+                  "type": "boolean"
+                },
+                "priority": {
+                  "type": "number"
+                },
+                "tags": {
+                  "type": "object"
+                },
+                "secondaryDelaySecs": {
+                  "type": "integer"
+                },
+                "votes": {
+                  "type": "integer"
+                }
+              },
+              "type": "object",
+              "required": [
+                "_id",
+                "arbiterOnly",
+                "buildIndexes",
+                "hidden",
+                "host",
+                "priority",
+                "secondaryDelaySecs",
+                "tags",
+                "votes"
+              ]
+            },
+            "type": "array"
+          },
+          "protocolVersion": {
+            "type": "integer"
+          },
+          "writeConcernMajorityJournalDefault": {
+            "type": "boolean"
+          },
+          "settings": {
+            "properties": {
+              "chainingAllowed": {
+                "type": "boolean"
+              },
+              "heartbeatIntervalMillis": {
+                "type": "integer"
+              },
+              "heartbeatTimeoutSecs": {
+                "type": "integer"
+              },
+              "electionTimeoutMillis": {
+                "type": "integer"
+              },
+              "catchUpTimeoutMillis": {
+                "type": "integer"
+              },
+              "catchUpTakeoverDelayMillis": {
+                "type": "integer"
+              },
+              "getLastErrorModes": {
+                "type": "object"
+              },
+              "getLastErrorDefaults": {
+                "properties": {
+                  "w": {
+                    "type": "integer"
+                  },
+                  "wtimeout": {
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              },
+              "replicaSetId": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "local_system.replset",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "version"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "term"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "members"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "protocolVersion"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "writeConcernMajorityJournalDefault"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "settings"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "mongo_mongousers_2",
+      "database_name": "mongo",
+      "table_name": "mongousers_2",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "mongo_mongousers_2",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "email"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "name"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "age"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "mongo_mongousers",
+      "database_name": "mongo",
+      "table_name": "mongousers",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "email": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "mongo_mongousers",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "email"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "name"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "age"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tap_stream_id": "mongo_users",
+      "database_name": "mongo",
+      "table_name": "users",
+      "key_properties": [
+        "_id"
+      ],
+      "schema": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "oldId": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "isVerified": {
+            "type": "boolean"
+          },
+          "services": {
+            "properties": {
+              "google": {
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "accessToken": {
+                    "type": "string"
+                  },
+                  "idToken": {
+                    "type": "string"
+                  },
+                  "expiresAt": {
+                    "type": "integer"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "verified_email": {
+                    "type": "boolean"
+                  },
+                  "picture": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "lastLogin": {
+            "type": "string"
+          },
+          "payment": {
+            "properties": {
+              "customerRemoteId": {
+                "type": "string"
+              },
+              "subscriptionRemoteId": {
+                "type": "string"
+              },
+              "planRemoteId": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "period": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "quantity": {
+                "type": "integer"
+              },
+              "currency": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "usedStorage_aibyte_transform": {
+            "type": "string"
+          },
+          "timezoneOffset": {
+            "type": "integer"
+          },
+          "lastAccess": {
+            "type": "string"
+          },
+          "introducedFeature": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "metadata": {
+            "properties": {
+              "rating": {
+                "properties": {
+                  "googleModalStatus": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              },
+              "hasShownTourGuide": {
+                "type": "boolean"
+              },
+              "hasShownAutoSyncModal": {
+                "type": "boolean"
+              },
+              "highestOrgPlan": {
+                "properties": {
+                  "highestLuminPlan": {
+                    "type": "string"
+                  },
+                  "highestLuminPlanStatus": {
+                    "type": "string"
+                  },
+                  "highestLuminOrgRole": {
+                    "type": "string"
+                  }
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "loginService": {
+            "type": "string"
+          },
+          "emailDomain": {
+            "type": "string"
+          },
+          "identityId": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "stream": "mongo_users",
+      "metadata": [
+        {
+          "breadcrumb": [
+            "properties",
+            "_id"
+          ],
+          "metadata": {
+            "inclusion": "automatic"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "oldId"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "email"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "password"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "name"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "createdAt"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "isVerified"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "services"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "lastLogin"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "payment"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "usedStorage_aibyte_transform"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "timezoneOffset"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "lastAccess"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "introducedFeature"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "metadata"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "loginService"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "emailDomain"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [
+            "properties",
+            "identityId"
+          ],
+          "metadata": {
+            "inclusion": "available"
+          }
+        },
+        {
+          "breadcrumb": [],
+          "metadata": {
+            "inclusion": "available",
+            "table-key-properties": [
+              "_id"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

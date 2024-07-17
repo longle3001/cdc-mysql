@@ -26,6 +26,9 @@ meltano run tap-mongodb hash_email  target-clickhouse
 
 
 
+update câtlog:
+meltano invoke tap-mongodb --discover > catalog.json 
+meltano install
 
 
 openssl rand -base64 741 > security.keyfile
@@ -43,3 +46,5 @@ sudo nano /etc/hosts --> them ánh xạ này
 
 
 meltano elt tap-mongodb target-clickhouse --transform run
+
+meltano --environment=pipeline2  run tap-mongodb hash_email_2  target-clickhouse 
