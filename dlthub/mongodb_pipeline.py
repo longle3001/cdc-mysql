@@ -20,13 +20,13 @@ def load_select_collection_db(pipeline: Pipeline = None) -> LoadInfo:
     if pipeline is None:
         # Create a pipeline
         pipeline = dlt.pipeline(
-            pipeline_name="local_mongo",
+            pipeline_name="local_mongo_2",
             destination='clickhouse',
-            dataset_name="mongo_select",
+            dataset_name="dlthub_users",
         )
 
     # Configure the source to load a few select collections incrementally
-    mflix = mongodb(incremental=dlt.sources.incremental("_id")).with_resources(
+    mflix = mongodb().with_resources(
         "mongousers"
     )
 
@@ -36,126 +36,126 @@ def load_select_collection_db(pipeline: Pipeline = None) -> LoadInfo:
     return info
 
 
-def load_select_collection_db_items(parallel: bool = False) -> TDataItems:
-    """Get the items from a mongo collection in parallel or not and return a list of records"""
-    comments = mongodb(
-        incremental=dlt.sources.incremental("date"), parallel=parallel
-    ).with_resources("comments")
-    return list(comments)
+# def load_select_collection_db_items(parallel: bool = False) -> TDataItems:
+#     """Get the items from a mongo collection in parallel or not and return a list of records"""
+#     comments = mongodb(
+#         incremental=dlt.sources.incremental("date"), parallel=parallel
+#     ).with_resources("comments")
+#     return list(comments)
 
 
-def load_select_collection_db_items_parallel(
-    data_item_format: TDataItemFormat, parallel: bool = False
-) -> TDataItems:
-    comments = mongodb_collection(
-        incremental=dlt.sources.incremental("date"),
-        parallel=parallel,
-        data_item_format=data_item_format,
-        collection="comments",
-    )
-    return list(comments)
+# def load_select_collection_db_items_parallel(
+#     data_item_format: TDataItemFormat, parallel: bool = False
+# ) -> TDataItems:
+#     comments = mongodb_collection(
+#         incremental=dlt.sources.incremental("date"),
+#         parallel=parallel,
+#         data_item_format=data_item_format,
+#         collection="comments",
+#     )
+#     return list(comments)
 
 
-def load_select_collection_db_filtered(pipeline: Pipeline = None) -> LoadInfo:
-    """Use the mongodb source to reflect an entire database schema and load select tables from it.
+# def load_select_collection_db_filtered(pipeline: Pipeline = None) -> LoadInfo:
+#     """Use the mongodb source to reflect an entire database schema and load select tables from it.
 
-    This example sources data from a sample mongo database data from [mongodb-sample-dataset](https://github.com/neelabalan/mongodb-sample-dataset).
-    """
-    if pipeline is None:
-        # Create a pipeline
-        pipeline = dlt.pipeline(
-            pipeline_name="local_mongo",
-            destination='clickhouse',
-            dataset_name="mongo_select_incremental",
-        )
+#     This example sources data from a sample mongo database data from [mongodb-sample-dataset](https://github.com/neelabalan/mongodb-sample-dataset).
+#     """
+#     if pipeline is None:
+#         # Create a pipeline
+#         pipeline = dlt.pipeline(
+#             pipeline_name="local_mongo",
+#             destination='clickhouse',
+#             dataset_name="mongo_select_incremental",
+#         )
 
-    # Configure the source to load a few select collections incrementally
-    movies = mongodb_collection(
-        collection="movies",
-        incremental=dlt.sources.incremental(
-            "lastupdated", initial_value=pendulum.DateTime(2016, 1, 1, 0, 0, 0)
-        ),
-    )
+#     # Configure the source to load a few select collections incrementally
+#     movies = mongodb_collection(
+#         collection="movies",
+#         incremental=dlt.sources.incremental(
+#             "lastupdated", initial_value=pendulum.DateTime(2016, 1, 1, 0, 0, 0)
+#         ),
+#     )
 
-    # Run the pipeline. The merge write disposition merges existing rows in the destination by primary key
-    info = pipeline.run(movies, write_disposition="merge")
+#     # Run the pipeline. The merge write disposition merges existing rows in the destination by primary key
+#     info = pipeline.run(movies, write_disposition="merge")
 
-    return info
-
-
-def load_select_collection_hint_db(pipeline: Pipeline = None) -> LoadInfo:
-    """Use the mongodb source to reflect an entire database schema and load select tables from it.
-
-    This example sources data from a sample mongo database data from [mongodb-sample-dataset](https://github.com/neelabalan/mongodb-sample-dataset).
-    """
-    if pipeline is None:
-        # Create a pipeline
-        pipeline = dlt.pipeline(
-            pipeline_name="local_mongo",
-            destination='clickhouse',
-            dataset_name="mongo_select_hint",
-        )
-
-    # Load a table incrementally with append write disposition
-    # this is good when a table only has new rows inserted, but not updated
-    airbnb = mongodb().with_resources("listingsAndReviews")
-    airbnb.listingsAndReviews.apply_hints(
-        incremental=dlt.sources.incremental("last_scraped")
-    )
-
-    info = pipeline.run(airbnb, write_disposition="append")
-
-    return info
+#     return info
 
 
-def load_entire_database(pipeline: Pipeline = None) -> LoadInfo:
-    """Use the mongo source to completely load all collection in a database"""
-    if pipeline is None:
-        # Create a pipeline
-        pipeline = dlt.pipeline(
-            pipeline_name="local_mongo",
-            destination='clickhouse',
-            dataset_name="mongo_database",
-        )
+# def load_select_collection_hint_db(pipeline: Pipeline = None) -> LoadInfo:
+#     """Use the mongodb source to reflect an entire database schema and load select tables from it.
 
-    # By default the mongo source reflects all collections in the database
-    source = mongodb()
+#     This example sources data from a sample mongo database data from [mongodb-sample-dataset](https://github.com/neelabalan/mongodb-sample-dataset).
+#     """
+#     if pipeline is None:
+#         # Create a pipeline
+#         pipeline = dlt.pipeline(
+#             pipeline_name="local_mongo",
+#             destination='clickhouse',
+#             dataset_name="mongo_select_hint",
+#         )
 
-    # Run the pipeline. For a large db this may take a while
-    info = pipeline.run(source, write_disposition="replace")
+#     # Load a table incrementally with append write disposition
+#     # this is good when a table only has new rows inserted, but not updated
+#     airbnb = mongodb().with_resources("listingsAndReviews")
+#     airbnb.listingsAndReviews.apply_hints(
+#         incremental=dlt.sources.incremental("last_scraped")
+#     )
 
-    return info
+#     info = pipeline.run(airbnb, write_disposition="append")
+
+#     return info
 
 
-def load_collection_with_arrow(pipeline: Pipeline = None) -> LoadInfo:
-    """
-    Load a MongoDB collection, using Apache
-    Error as the data processor.
-    """
-    if pipeline is None:
-        # Create a pipeline
-        pipeline = dlt.pipeline(
-            pipeline_name="local_mongo",
-            destination='clickhouse',
-            dataset_name="mongo_select_incremental",
-            full_refresh=True,
-        )
+# def load_entire_database(pipeline: Pipeline = None) -> LoadInfo:
+#     """Use the mongo source to completely load all collection in a database"""
+#     if pipeline is None:
+#         # Create a pipeline
+#         pipeline = dlt.pipeline(
+#             pipeline_name="local_mongo",
+#             destination='clickhouse',
+#             dataset_name="mongo_database",
+#         )
 
-    # Configure the source to load data with Arrow
-    comments = mongodb_collection(
-        collection="comments",
-        incremental=dlt.sources.incremental(
-            "date",
-            initial_value=pendulum.DateTime(
-                2005, 1, 1, tzinfo=pendulum.timezone("UTC")
-            ),
-            end_value=pendulum.DateTime(2005, 6, 1, tzinfo=pendulum.timezone("UTC")),
-        ),
-        data_item_format="arrow",
-    )
+#     # By default the mongo source reflects all collections in the database
+#     source = mongodb()
 
-    info = pipeline.run(comments)
-    return info
+#     # Run the pipeline. For a large db this may take a while
+#     info = pipeline.run(source, write_disposition="replace")
+
+#     return info
+
+
+# def load_collection_with_arrow(pipeline: Pipeline = None) -> LoadInfo:
+#     """
+#     Load a MongoDB collection, using Apache
+#     Error as the data processor.
+#     """
+#     if pipeline is None:
+#         # Create a pipeline
+#         pipeline = dlt.pipeline(
+#             pipeline_name="local_mongo",
+#             destination='clickhouse',
+#             dataset_name="mongo_select_incremental",
+#             full_refresh=True,
+#         )
+
+#     # Configure the source to load data with Arrow
+#     comments = mongodb_collection(
+#         collection="comments",
+#         incremental=dlt.sources.incremental(
+#             "date",
+#             initial_value=pendulum.DateTime(
+#                 2005, 1, 1, tzinfo=pendulum.timezone("UTC")
+#             ),
+#             end_value=pendulum.DateTime(2005, 6, 1, tzinfo=pendulum.timezone("UTC")),
+#         ),
+#         data_item_format="arrow",
+#     )
+
+#     info = pipeline.run(comments)
+#     return info
 
 
 if __name__ == "__main__":

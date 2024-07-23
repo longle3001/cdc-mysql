@@ -26,7 +26,7 @@ environments:
       loaders:
         - name: target-clickhouse
           config:
-            table_name: meltano_mongodb_users_2
+            table_name: meltano_mongodb_users_2_4s
           mappings: 
 
 plugins:
@@ -38,8 +38,8 @@ plugins:
       mongo:
         host: localhost
         port: 27017
-        username: admin
-        password: admin
+        username: ${MONGODB_USER}
+        password: ${MONGODB_PASSWORD}
         authSource: admin
       strategy: infer
       flattening_enabled: true
@@ -54,8 +54,8 @@ plugins:
     config:
       host: localhost
       port: 8123
-      username: clickhouse-user
-      password: secret
+      username: ${CLICKHOUSE_USER}
+      password: ${CLICKHOUSE_PASSWORD}
       # username: clickhouse_operator
       # password: VJfeBOi3FekkIjtm
       # table_name: meltano_mongodb_users

@@ -84,6 +84,7 @@ services:
 
   clickhouse:
     image: clickhouse/clickhouse-server:22.5.1.2079
+    # image: clickhouse/clickhouse-server:latest
     platform: linux/amd64
     ports:
       - "9000:9000"  
